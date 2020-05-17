@@ -21,9 +21,7 @@ class CryptographyDeprecationWarning(UserWarning):
 # ubiquity of their use. They should not be removed until we agree on when that
 # cycle ends.
 PersistentlyDeprecated2017 = CryptographyDeprecationWarning
-PersistentlyDeprecated2018 = CryptographyDeprecationWarning
 PersistentlyDeprecated2019 = CryptographyDeprecationWarning
-DeprecatedIn27 = CryptographyDeprecationWarning
 
 
 def _check_bytes(name, value):

@@ -10,30 +10,24 @@ You can install ``cryptography`` with ``pip``:
 Supported platforms
 -------------------
 
-Currently we test ``cryptography`` on Python 2.7, 3.5+, and
-PyPy 5.4+ on these operating systems.
+Currently we test ``cryptography`` on Python 2.7, 3.5+,
+PyPy 7.1+, and PyPy3 7.0 on these operating systems.
 
 * x86-64 CentOS 7.x
 * x86-64 Fedora (latest)
-* macOS 10.13 High Sierra, 10.14 Mojave
-* x86-64 Ubuntu 14.04, 16.04, and rolling
-* x86-64 Debian Jessie (8.x), Stretch (9.x), Buster (10.x), and Sid (unstable)
+* macOS 10.15 Catalina
+* x86-64 Ubuntu 16.04 and rolling
+* x86-64 Debian Stretch (9.x), Buster (10.x), Bullseye (11.x), and Sid
+  (unstable)
 * x86-64 Alpine (latest)
 * 32-bit and 64-bit Python on 64-bit Windows Server 2019
 
 We test compiling with ``clang`` as well as ``gcc`` and use the following
 OpenSSL releases:
 
-* ``OpenSSL 1.0.1``
-* ``OpenSSL 1.0.1e-fips`` (``RHEL/CentOS 7``)
-* ``OpenSSL 1.0.1f``
 * ``OpenSSL 1.0.2-latest``
 * ``OpenSSL 1.1.0-latest``
 * ``OpenSSL 1.1.1-latest``
-
-.. warning::
-    Cryptography 2.9 has dropped support for OpenSSL 1.0.1, see the
-    :doc:`FAQ </faq>` for more details
 
 Building cryptography on Windows
 --------------------------------

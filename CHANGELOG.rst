@@ -1,12 +1,44 @@
 Changelog
 =========
 
-.. _v2-9:
+.. _v3-0:
 
-2.9 - `master`_
+3.0 - `master`_
 ~~~~~~~~~~~~~~~
 
 .. note:: This version is not yet released and is under active development.
+
+* **BACKWARDS INCOMPATIBLE:** Removed support for passing an
+  :class:`~cryptography.x509.Extension` instance to
+  :meth:`~cryptography.x509.AuthorityKeyIdentifier.from_issuer_subject_key_identifier`,
+  as per our deprecation policy.
+* **BACKWARDS INCOMPATIBLE:** Support for LibreSSL 2.7.x, 2.8.x, and 2.9.0 has
+  been removed (2.9.1+ is still supported).
+* Deprecated support for Python 2. At the time there is no time table for
+  actually dropping support, however we strongly encourage all users to upgrade
+  their Python, as Python 2 no longer receives support from the Python core
+  team.
+
+.. _v2-9-2:
+
+2.9.2 - 2020-04-22
+~~~~~~~~~~~~~~~~~~
+
+* Updated the macOS wheel to fix an issue where it would not run on macOS
+  versions older than 10.15.
+
+.. _v2-9-1:
+
+2.9.1 - 2020-04-21
+~~~~~~~~~~~~~~~~~~
+
+* Updated Windows, macOS, and ``manylinux`` wheels to be compiled with
+  OpenSSL 1.1.1g.
+
+.. _v2-9:
+
+2.9 - 2020-04-02
+~~~~~~~~~~~~~~~~
 
 * **BACKWARDS INCOMPATIBLE:** Support for Python 3.4 has been removed due to
   low usage and maintenance burden.
@@ -17,12 +49,15 @@ Changelog
   :meth:`~cryptography.hazmat.primitives.asymmetric.x25519.X25519PublicKey.public_bytes`
   with no arguments, as per our deprecation policy. You must now pass
   ``encoding`` and ``format``.
+* **BACKWARDS INCOMPATIBLE:** Reversed the order in which
+  :meth:`~cryptography.x509.Name.rfc4514_string` returns the RDNs
+  as required by :rfc:`4514`.
+* Updated Windows, macOS, and ``manylinux`` wheels to be compiled with
+  OpenSSL 1.1.1f.
 * Added support for parsing
   :attr:`~cryptography.x509.ocsp.OCSPResponse.single_extensions` in an OCSP
   response.
-* **BACKWARDS INCOMPATIBLE:** Reversed the order in which
-  :meth:`~cryptography.x509.Name.rfc4514_string` returns the RDNs as required by
-  :rfc:`4514`.
+* :class:`~cryptography.x509.NameAttribute` values can now be empty strings.
 
 .. _v2-8:
 

@@ -7,7 +7,6 @@ from __future__ import absolute_import, division, print_function
 import binascii
 import collections
 import json
-import math
 import os
 import re
 from contextlib import contextmanager
@@ -744,15 +743,15 @@ def load_x963_vectors(vector_data):
             vector["key_data_length"] = key_data_len
         elif line.startswith("Z"):
             vector["Z"] = line.split("=")[1].strip()
-            assert math.ceil(shared_secret_len / 8) * 2 == len(vector["Z"])
+            assert ((shared_secret_len + 7) // 8) * 2 == len(vector["Z"])
         elif line.startswith("SharedInfo"):
             if shared_info_len != 0:
                 vector["sharedinfo"] = line.split("=")[1].strip()
                 silen = len(vector["sharedinfo"])
-                assert math.ceil(shared_info_len / 8) * 2 == silen
+                assert ((shared_info_len + 7) // 8) * 2 == silen
         elif line.startswith("key_data"):
             vector["key_data"] = line.split("=")[1].strip()
-            assert math.ceil(key_data_len / 8) * 2 == len(vector["key_data"])
+            assert ((key_data_len + 7) // 8) * 2 == len(vector["key_data"])
             vectors.append(vector)
             vector = {}
 
@@ -887,13 +886,17 @@ def load_nist_ccm_vectors(vector_data):
 
 
 class WycheproofTest(object):
-    def __init__(self, testgroup, testcase):
+    def __init__(self, testfiledata, testgroup, testcase):
+        self.testfiledata = testfiledata
         self.testgroup = testgroup
         self.testcase = testcase
 
     def __repr__(self):
-        return "<WycheproofTest({!r}, {!r}, tcId={})>".format(
-            self.testgroup, self.testcase, self.testcase["tcId"],
+        return "<WycheproofTest({!r}, {!r}, {!r}, tcId={})>".format(
+            self.testfiledata,
+            self.testgroup,
+            self.testcase,
+            self.testcase["tcId"],
         )
 
     @property
@@ -923,7 +926,7 @@ def load_wycheproof_tests(wycheproof, test_file):
     path = os.path.join(wycheproof, "testvectors", test_file)
     with open(path) as f:
         data = json.load(f)
-        for group in data["testGroups"]:
+        for group in data.pop("testGroups"):
             cases = group.pop("tests")
             for c in cases:
-                yield WycheproofTest(group, c)
+                yield WycheproofTest(data, group, c)

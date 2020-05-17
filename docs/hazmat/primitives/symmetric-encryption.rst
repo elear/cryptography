@@ -44,7 +44,7 @@ it fits your needs before implementing anything using this module.**
         >>> decryptor.update(ct) + decryptor.finalize()
         b'a secret message'
 
-    :param algorithms: A
+    :param algorithm: A
         :class:`~cryptography.hazmat.primitives.ciphers.CipherAlgorithm`
         instance such as those described
         :ref:`below <symmetric-encryption-algorithms>`.
@@ -418,9 +418,6 @@ Modes
     :raises ValueError: This is raised if ``len(tag) < min_tag_length`` or the
         ``initialization_vector`` is too short.
 
-    :raises NotImplementedError: This is raised if the version of the OpenSSL
-        backend used is 1.0.1 or earlier.
-
     An example of securely encrypting and decrypting data with ``AES`` in the
     ``GCM`` mode looks like:
 
@@ -681,18 +678,12 @@ Interfaces
 
     .. method:: finalize_with_tag(tag)
 
-        .. note::
-
-            This method is not supported when compiled against OpenSSL 1.0.1.
-
         :param bytes tag: The tag bytes to verify after decryption.
         :return bytes: Returns the remainder of the data.
         :raises ValueError: This is raised when the data provided isn't
             a multiple of the algorithm's block size, if ``min_tag_length`` is
             less than 4, or if ``len(tag) < min_tag_length``.
             ``min_tag_length`` is an argument to the ``GCM`` constructor.
-        :raises NotImplementedError: This is raised if the version of the
-            OpenSSL backend used is 1.0.1 or earlier.
 
         If the authentication tag was not already supplied to the constructor
         of the :class:`~cryptography.hazmat.primitives.ciphers.modes.GCM` mode
@@ -828,7 +819,7 @@ Exceptions
 .. _`Communications Security Establishment`: https://www.cse-cst.gc.ca
 .. _`encrypt`: https://ssd.eff.org/en/module/what-should-i-know-about-encryption
 .. _`CRYPTREC`: https://www.cryptrec.go.jp/english/
-.. _`significant patterns in the output`: https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Electronic_Codebook_.28ECB.29
+.. _`significant patterns in the output`: https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Electronic_codebook_(ECB)
 .. _`International Data Encryption Algorithm`: https://en.wikipedia.org/wiki/International_Data_Encryption_Algorithm
 .. _`OpenPGP`: https://www.openpgp.org/
 .. _`disk encryption`: https://en.wikipedia.org/wiki/Disk_encryption_theory#XTS
